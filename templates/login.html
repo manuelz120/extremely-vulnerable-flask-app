@@ -2,14 +2,14 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h1>Signup</h1>
+      <h1>Login</h1>
     </div>
   </div>
   <div class="row">
     <div class="col">
       <form
         method="post"
-        action="/signup">
+        action="/login">
         <div class="mb-3">
           <label
             for="email"
@@ -20,13 +20,7 @@
             type="email"
             class="form-control"
             name="email"
-            id="email"
-            aria-describedby="emailHelp" />
-          <div
-            id="emailHelp"
-            class="form-text">
-            We'll never share your email with anyone else.
-          </div>
+            id="email" />
         </div>
         <div class="mb-3">
           <label
@@ -40,22 +34,10 @@
             id="password"
             name="password" />
         </div>
-        <div class="mb-3">
-          <label
-            for="registration_code"
-            class="form-label">
-            Registration Code
-          </label>
-          <input
-            type="password"
-            class="form-control"
-            id="registration_code"
-            name="registration_code" />
-        </div>
         <button
           type="submit"
           class="btn btn-primary">
-          Signup
+          Login
         </button>
       </form>
     </div>

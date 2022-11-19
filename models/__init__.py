@@ -10,7 +10,7 @@ basedir = path.abspath(path.dirname(__file__))
 
 engine: Engine = create_engine('sqlite:///' +
                                path.join(basedir, '..', 'database.db'),
-                               echo=False,
+                               echo=True,
                                encoding='utf8')
 
 BaseModel.metadata.create_all(bind=engine)
