@@ -5,4 +5,4 @@ class RegistrationForm(Form):
     email = EmailField('Email Address', [validators.DataRequired()])
     password = PasswordField('Password', [validators.DataRequired()])
     registration_code = StringField('Registration Code',
-                                    [validators.Length(min=36, max=36)])
+                                    [validators.Length(min=5)])
