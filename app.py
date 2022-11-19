@@ -31,5 +31,5 @@ def do_signup():
 
     if form.validate():
         return request.form
-    else:
-        return "Invalid input"
+
+    return "Invalid input: " + ",".join(form.form_errors)
