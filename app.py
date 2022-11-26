@@ -34,7 +34,7 @@ def hello_world():
 @app.route('/home')
 @login_required
 def hello():
-    return render_template('base.html')
+    return render_template('home.html')
 
 
 @login_manager.unauthorized_handler
