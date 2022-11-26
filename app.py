@@ -2,8 +2,8 @@
 
 import uuid
 from flask_bootstrap import Bootstrap5
-from flask_login import LoginManager
-from flask import Flask, render_template, render_template_string, request
+from flask_login import LoginManager, login_required
+from flask import Flask, render_template, render_template_string, request, redirect
 from routes import init
 from models import RegistrationCode, Session
 
@@ -26,13 +26,20 @@ with Session() as session:
 
 
 @app.route("/")
+@login_required
 def hello_world():
-    return "<p>Hello, World!</p>"
+    return redirect('/home')
 
 
-@app.route('/hello/')
+@app.route('/home')
+@login_required
 def hello():
     return render_template('base.html')
+
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    return redirect('/login')
 
 
 @app.errorhandler(404)

@@ -1,6 +1,6 @@
 from typing import Union
 from flask import render_template, request, redirect
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import checkpw
 from sqlalchemy import select
 from app import app, login_manager
@@ -10,7 +10,6 @@ from forms.login_form import LoginForm
 
 @login_manager.user_loader
 def load_user(user_id: str) -> Union[User, None]:
-    print(f"In here: {user_id}")
     with Session() as session:
         return session.get(User, user_id)
 
@@ -30,21 +29,21 @@ def do_login():
     with Session() as session:
         user = session.execute(select(User).order_by(User.id)).fetchone()[0]
 
-        if user is not None and checkpw(form.password.data.encode('utf-8'),
-                                        user.password.encode('utf-8')):
-            success = login_user(user)
-            session.commit()
-            return "Yes" if success else "Error"
+        if user is not None and checkpw(
+                form.password.data.encode('utf-8'),
+                user.password.encode('utf-8')) and login_user(user):
+            return redirect("/")
 
         logout_user()
-        session.commit()
-        return "Nope"
+
+    return redirect("/")
 
 
 @app.route('/logout', methods=['GET'])
+@login_required
 def logout():
     logout_user()
-    return redirect("")
+    return redirect("/")
 
 
 @app.route('/is_logged_in', methods=['GET'])
