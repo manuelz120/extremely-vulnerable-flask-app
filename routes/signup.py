@@ -1,7 +1,7 @@
 from sqlite3 import OperationalError
 from sqlalchemy.sql import text
 
-from flask import render_template, request
+from flask import render_template, request, redirect, flash
 from bcrypt import gensalt, hashpw
 from app import app
 from models import Session, User, RegistrationCode
@@ -43,10 +43,12 @@ def do_signup():
 
         code = form.registration_code.data
         if not validate_token(code, session):
-            return "Invalid registration code"
+            flash("Invalid registration code", 'warning')
+            return redirect("/signup")
 
         if user_already_exists:
-            return "User already exists"
+            flash("User already exists", 'warning')
+            return redirect("/signup")
 
         user = User()
 
@@ -57,4 +59,4 @@ def do_signup():
         session.add(user)
         session.commit()
 
-    return request.form
+    return redirect('/home')

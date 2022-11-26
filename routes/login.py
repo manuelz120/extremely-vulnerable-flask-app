@@ -1,5 +1,5 @@
 from typing import Union
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import checkpw
 from sqlalchemy import select
@@ -34,7 +34,8 @@ def do_login():
                 user.password.encode('utf-8')) and login_user(user):
             return redirect("/")
 
-        logout_user()
+    flash('Invalid Credentials!', 'warning')
+    logout_user()
 
     return redirect("/")
 
