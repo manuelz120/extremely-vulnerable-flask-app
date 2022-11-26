@@ -51,7 +51,8 @@ def do_signup():
         user = User()
 
         user.email = form.email.data
-        user.password = hashpw(form.password.data.encode('utf-8'), gensalt())
+        user.password = hashpw(form.password.data.encode('utf-8'),
+                               gensalt()).decode()
 
         session.add(user)
         session.commit()

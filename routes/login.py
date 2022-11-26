@@ -1,3 +1,4 @@
+from typing import Union
 from flask import render_template, request, redirect
 from flask_login import login_user, logout_user, current_user
 from bcrypt import checkpw
@@ -8,7 +9,8 @@ from forms.login_form import LoginForm
 
 
 @login_manager.user_loader
-def load_user(user_id):
+def load_user(user_id: str) -> Union[User, None]:
+    print(f"In here: {user_id}")
     with Session() as session:
         return session.get(User, user_id)
 
@@ -29,10 +31,10 @@ def do_login():
         user = session.execute(select(User).order_by(User.id)).fetchone()[0]
 
         if user is not None and checkpw(form.password.data.encode('utf-8'),
-                                        user.password):
-            login_user(user)
+                                        user.password.encode('utf-8')):
+            success = login_user(user)
             session.commit()
-            return "Yes"
+            return "Yes" if success else "Error"
 
         logout_user()
         session.commit()
@@ -49,5 +51,6 @@ def logout():
 def logged_in():
     return {
         'is_logged_in': current_user.is_authenticated,
-        'username': current_user.name if current_user.is_authenticated else '-'
+        'username':
+        current_user.email if current_user.is_authenticated else '-'
     }
