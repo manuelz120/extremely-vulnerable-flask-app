@@ -27,13 +27,13 @@ with Session() as session:
 
 @app.route("/")
 @login_required
-def hello_world():
+def index():
     return redirect('/home')
 
 
 @app.route('/home')
 @login_required
-def hello():
+def home():
     return render_template('home.html')
 
 
