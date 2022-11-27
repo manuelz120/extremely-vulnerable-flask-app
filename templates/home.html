@@ -4,10 +4,20 @@ import render_icon %}
 <div class="container">
   <div class="row">
     <div class="col">
-      <h1>Home</h1>
+      <div class="d-flex justify-content-between">
+        <h1>Home</h1>
+        <button
+          type="button"
+          class="btn btn-primary mb-2"
+          data-bs-toggle="modal"
+          data-bs-target="#create_note_modal">
+          {{ render_icon('file-earmark-plus') }} Create note
+        </button>
+      </div>
     </div>
   </div>
   <div class="row">
+    <hr />
     {%for note in notes %}
     <div class="col-sm-6">
       <div class="card mb-2">
@@ -22,62 +32,23 @@ import render_icon %}
           <div class="card-footer text-muted">
             <div class="d-flex justify-content-between">
               <span>By {{note.user.email}}</span>
-              <a
-                href="#"
-                class="card-link"
-                >Delete</a
-              >
+              {% if note.user_id == current_user.id or current_user.is_admin %}
+              <form
+                method="post"
+                action="/notes/{{note.id}}/delete">
+                <button
+                  type="submit"
+                  class="btn btn-primary d-flex align-items-center">
+                  {{render_icon('trash')}}&nbsp;Delete
+                </button>
+              </form>
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
     </div>
-    {%endfor%}
-    <hr />
-    <div class="row">
-      <form
-        method="post"
-        action="/notes">
-        <div class="mb-3">
-          <label
-            for="title"
-            class="form-label">
-            Title
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            name="title"
-            id="title"
-            required />
-        </div>
-        <div class="mb-3">
-          <label
-            for="text"
-            class="form-label">
-            Text
-          </label>
-          {{ ckeditor.create(name="text") }}
-        </div>
-        <div class="mb-3">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            name="private"
-            id="private" />
-          <label
-            class="form-check-label"
-            for="private">
-            Private?
-          </label>
-        </div>
-        <button
-          type="submit"
-          class="btn btn-primary">
-          Add Note
-        </button>
-      </form>
-    </div>
+    {%endfor%} {% include "partials/create_note_modal.html" %}
   </div>
 </div>
 {% endblock %} {% block scripts %} {{ ckeditor.load() }} {% endblock %}

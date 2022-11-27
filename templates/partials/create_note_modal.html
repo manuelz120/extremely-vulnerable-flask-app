@@ -1,0 +1,63 @@
+<div
+  class="modal fade"
+  id="create_note_modal"
+  tabindex="-1"
+  aria-labelledby="Create Note Modal"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Note</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form
+          method="post"
+          action="/notes">
+          <div class="mb-3">
+            <label
+              for="title"
+              class="form-label">
+              Title
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="title"
+              id="title"
+              required />
+          </div>
+          <div class="mb-3">
+            <label
+              for="text"
+              class="form-label">
+              Text
+            </label>
+            {{ ckeditor.create(name="text") }}
+          </div>
+          <div class="mb-3">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="private"
+              id="private" />
+            <label
+              class="form-check-label"
+              for="private">
+              Private?
+            </label>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary">
+            Add Note
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
