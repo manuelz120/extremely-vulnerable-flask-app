@@ -6,7 +6,8 @@ from base64 import b64encode, b64decode
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
 from flask_login import LoginManager, login_required, current_user
-from flask import Flask, render_template, render_template_string, request, redirect, Response, g, make_response
+from flask import (Flask, render_template, render_template_string, request,
+                   redirect, Response, g, make_response)
 from routes import init
 from models import RegistrationCode, Session
 from utils.notes import get_notes_for_user
