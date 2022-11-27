@@ -45,6 +45,7 @@
             {% if current_user.is_authenticated %}
             <div class="d-flex">
             {{ render_nav_item('home', 'Home') }}
+            {{ render_nav_item('get_personal_notes', 'Personal Notes', user_id=current_user.id) }}
             {% if current_user.is_admin %}
             {{ render_nav_item('registration_codes', 'Registration Codes') }}
             {% endif %}

@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from flask import redirect, flash, render_template, request, Response, g, make_response
 
 from app import app
-from models import Session
+from models import Session, Note
 from forms.image_form import ImageForm
 from utils.profile_image import get_base64_image_blob
 
@@ -14,6 +14,16 @@ from utils.profile_image import get_base64_image_blob
 @login_required
 def account():
     return render_template('account.html')
+
+
+@app.route('/accounts/<int:user_id>/notes')
+@login_required
+def get_personal_notes(user_id: int):
+    with Session() as session:
+        personal_notes = session.query(Note).filter(
+            Note.user_id == user_id).all()
+        return render_template('personal_notes.html',
+                               personal_notes=personal_notes)
 
 
 @app.route('/account/image', methods=['POST'])
