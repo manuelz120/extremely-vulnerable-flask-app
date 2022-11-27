@@ -7,7 +7,7 @@ from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
 from flask_login import LoginManager, login_required, current_user
 from flask import (Flask, render_template, render_template_string, request,
-                   redirect, Response, g, make_response)
+                   redirect, Response, g, make_response, flash)
 from routes import init
 from models import RegistrationCode, Session
 from utils.notes import get_notes_for_user
@@ -16,7 +16,7 @@ from utils.notes import get_notes_for_user
 def setup_db():
     with Session() as session:
         session.execute(f"DELETE FROM {RegistrationCode.__tablename__}")
-        for i in range(100):
+        for i in range(10):
             code = RegistrationCode()
             code.code = str(uuid.uuid4())
             session.add(code)
@@ -55,6 +55,37 @@ def home():
 @login_required
 def account():
     return render_template('account.html')
+
+
+@app.route('/registration-codes', methods=['GET'])
+@login_required
+def registration_codes():
+    if not current_user.is_admin:
+        flash("Not authorized to access this page", 'error')
+        return redirect('/home')
+
+    with Session() as session:
+        codes = session.query(RegistrationCode).all()
+
+        return render_template('registration_codes.html',
+                               registration_codes=codes)
+
+
+@app.route('/registration-codes', methods=['POST'])
+@login_required
+def add_registration_codes():
+    if not current_user.is_admin:
+        flash("Not authorized to create new registration codes", 'error')
+        return redirect('/home')
+
+    with Session(expire_on_commit=False) as session:
+        code = RegistrationCode()
+        code.code = str(uuid.uuid4())
+        session.add(code)
+        session.commit()
+
+    flash(f"Code added: {code.code}", 'success')
+    return redirect('/registration-codes')
 
 
 @login_manager.unauthorized_handler

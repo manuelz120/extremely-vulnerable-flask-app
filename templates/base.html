@@ -43,7 +43,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0{% if current_user.is_authenticated %} flex-grow-1 justify-content-between {% endif %}">
             {% if current_user.is_authenticated %}
+            <div class="d-flex">
             {{ render_nav_item('home', 'Home') }}
+            {% if current_user.is_admin %}
+            {{ render_nav_item('registration_codes', 'Registration Codes') }}
+            {% endif %}
+            </div>
             <div class="d-flex">
               <a href="/account">
                 <object
