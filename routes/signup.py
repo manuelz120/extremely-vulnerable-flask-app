@@ -49,7 +49,8 @@ def do_signup():
 
         token = session.get(RegistrationCode, token_id)
         if token.code != code:
-            raise Exception("Unexpected registration code mismatch")
+            flash("Unexpected registration code mismatch", 'error')
+            return redirect("/signup")
 
         session.delete(token)
 
