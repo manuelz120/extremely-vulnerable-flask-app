@@ -2,16 +2,20 @@
 
 import uuid
 from flask_bootstrap import Bootstrap5
+from flask_ckeditor import CKEditor
 from flask_login import LoginManager, login_required
 from flask import Flask, render_template, render_template_string, request, redirect
 from routes import init
-from models import RegistrationCode, Session
+from models import RegistrationCode, Session, Note
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 bootstrap = Bootstrap5(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+ckeditor = CKEditor()
+
+ckeditor.init_app(app)
 
 init()
 
@@ -34,7 +38,9 @@ def index():
 @app.route('/home')
 @login_required
 def home():
-    return render_template('home.html')
+    with Session() as sess:
+        notes = sess.query(Note).all()
+        return render_template('home.html', notes=notes)
 
 
 @login_manager.unauthorized_handler

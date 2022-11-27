@@ -5,5 +5,72 @@
       <h1>Home</h1>
     </div>
   </div>
+  <div class="row">
+    {%for note in notes %}
+    <div class="col-sm-6">
+      <div
+        class="card"
+        style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">{{note.title}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{note.created_at}}</h6>
+          <p class="card-text">
+            {{note.text | safe}}
+            <span>{{note.user}}</span>
+          </p>
+          <a
+            href="#"
+            class="card-link"
+            >Delete</a
+          >
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+    <div class="row">
+      <form
+        method="post"
+        action="/notes">
+        <div class="mb-3">
+          <label
+            for="title"
+            class="form-label">
+            Title
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            name="title"
+            id="title"
+            required />
+        </div>
+        <div class="mb-3">
+          <label
+            for="text"
+            class="form-label">
+            Text
+          </label>
+          {{ ckeditor.create(name="text") }}
+        </div>
+        <div class="mb-3">
+          <label
+            for="private"
+            class="form-label">
+            Private?
+          </label>
+          <input
+            type="checkbox"
+            class="form-control"
+            id="private"
+            name="private" />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary">
+          Add Note
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
-{% endblock %}
+{% endblock %} {% block scripts %} {{ ckeditor.load() }} {% endblock %}
