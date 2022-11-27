@@ -17,7 +17,6 @@ import render_icon %}
     </div>
   </div>
   <div class="row">
-    <hr />
     {%for note in notes %}
     <div class="col col-12 col-md-6">
       <div class="card mb-2">
@@ -48,7 +47,10 @@ import render_icon %}
         </div>
       </div>
     </div>
-    {%endfor%} {% include "partials/create_note_modal.html" %}
+    {%endfor%} {% include "partials/create_note_modal.html" %} {% if notes |
+    length == 0 %}
+    <p>Create your first note!</p>
+    {% endif %}
   </div>
 </div>
 {% endblock %} {% block scripts %} {{ ckeditor.load() }} {% endblock %}

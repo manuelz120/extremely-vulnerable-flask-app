@@ -18,8 +18,13 @@
     </div>
   </div>
   <div class="row mb-2">
-    {{ render_table(registration_codes, responsive=True,
-    table_classes="font-monospace") }}
+    <div class="col">
+      {{ render_table(registration_codes, responsive=True,
+      table_classes="font-monospace") }} {% if registration_codes | length == 0
+      %}
+      <p>No registration codes available</p>
+      {% endif %}
+    </div>
   </div>
 </div>
 {% endblock %}
