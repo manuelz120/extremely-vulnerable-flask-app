@@ -3,10 +3,23 @@
 import uuid
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
-from flask_login import LoginManager, login_required
+from flask_login import LoginManager, login_required, current_user
 from flask import Flask, render_template, render_template_string, request, redirect
 from routes import init
-from models import RegistrationCode, Session, Note
+from models import RegistrationCode, Session
+from utils.notes import get_notes_for_user
+
+
+def setup_db():
+    with Session() as session:
+        session.execute(f"DELETE FROM {RegistrationCode.__tablename__}")
+        for i in range(100):
+            code = RegistrationCode()
+            code.code = str(uuid.uuid4())
+            session.add(code)
+
+        session.commit()
+
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
@@ -16,17 +29,8 @@ login_manager.init_app(app)
 ckeditor = CKEditor()
 
 ckeditor.init_app(app)
-
 init()
-
-with Session() as session:
-    session.execute(f"DELETE FROM {RegistrationCode.__tablename__}")
-    for i in range(100):
-        code = RegistrationCode()
-        code.code = str(uuid.uuid4())
-        session.add(code)
-
-    session.commit()
+setup_db()
 
 
 @app.route("/")
@@ -38,9 +42,8 @@ def index():
 @app.route('/home')
 @login_required
 def home():
-    with Session() as sess:
-        notes = sess.query(Note).all()
-        return render_template('home.html', notes=notes)
+    return render_template('home.html',
+                           notes=get_notes_for_user(current_user.id))
 
 
 @login_manager.unauthorized_handler

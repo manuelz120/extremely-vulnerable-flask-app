@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block content %} {% from 'bootstrap5/utils.html'
+import render_icon %}
+
 <div class="container">
   <div class="row">
     <div class="col">
@@ -12,7 +14,10 @@
         class="card"
         style="width: 18rem">
         <div class="card-body">
-          <h5 class="card-title">{{note.title}}</h5>
+          <h5 class="card-title">
+            {{note.title}} {% if note.private %} - Private
+            {{render_icon('file-lock-fill')}} {% endif %}
+          </h5>
           <h6 class="card-subtitle mb-2 text-muted">{{note.created_at}}</h6>
           <p class="card-text">
             {{note.text | safe}}
@@ -53,16 +58,16 @@
           {{ ckeditor.create(name="text") }}
         </div>
         <div class="mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="private"
+            id="private" />
           <label
-            for="private"
-            class="form-label">
+            class="form-check-label"
+            for="private">
             Private?
           </label>
-          <input
-            type="checkbox"
-            class="form-control"
-            id="private"
-            name="private" />
         </div>
         <button
           type="submit"
