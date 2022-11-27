@@ -27,6 +27,7 @@ def setup_db():
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 app.config['BOOTSTRAP_SERVE_LOCAL'] = True
+app.config['CKEDITOR_SERVE_LOCAL'] = True
 bootstrap = Bootstrap5(app)
 login_manager = LoginManager()
 login_manager.init_app(app)

@@ -1,27 +1,28 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% from 'bootstrap5/utils.html' import render_icon %}
+{% block content %}
 <div class="container">
   <div class="row">
     <div class="col">
       <h1>Account</h1>
     </div>
   </div>
-  <div class="row">
+  <div class="row mb-2">
     <div class="col"><b>Email:</b>&nbsp;{{current_user.email}}</div>
     <div class="col">
       <object
         width="200"
         height="200"
-        class="rounded img-thumbnail"
+        class="rounded-circle img-thumbnail"
         data="{{current_user.profile_image.decode() if current_user.profile_image else '/static/fallback.png'}}">
         <img
           width="200"
           height="200"
-          class="rounded img-thumbnail"
+          class="rounded-circle img-thumbnail"
           src="/static/fallback.png" />
       </object>
     </div>
   </div>
-  <div class="row">
+  <div class="row mb-2">
     <div class="col">
       <form
         method="post"
@@ -46,15 +47,22 @@
       </form>
     </div>
   </div>
-  <div class="row">
+  <div class="row mb-2">
+    <div class="col">
+      <h2>Visuals</h2>
+    </div>
+  </div>
+  <div class="row mb-2">
     <div class="col">
       <form
         action="/darkmode"
         method="post">
         <button
           type="submit"
-          class="btn btn-primary">
-          Toggle Darkmode
+          class="btn btn-primary d-flex align-items-center">
+          {% if g.preferences['mode'] == 'light' %}
+          {{render_icon('moon')}}&nbsp;Enable Darkmode {% else %}
+          {{render_icon('sun')}}&nbsp;Disable Darkmode {% endif %}
         </button>
       </form>
     </div>
