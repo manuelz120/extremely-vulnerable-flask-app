@@ -31,7 +31,6 @@ def do_login():
         query_response = session.execute(select(User).order_by(
             User.id)).fetchone()
         user = query_response[0] if query_response is not None else None
-
         if user is not None and checkpw(
                 form.password.data.encode('utf-8'),
                 user.password.encode('utf-8')) and login_user(user):

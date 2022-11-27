@@ -19,7 +19,6 @@ def add_image():
         current_user.profile_image = get_base64_image_blob(
             form.url.data).encode()
         session.merge(current_user)
-        print(current_user.profile_image)
         session.commit()
 
     return redirect('/account')

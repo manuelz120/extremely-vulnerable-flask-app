@@ -12,7 +12,7 @@
         width="200"
         height="200"
         class="rounded img-thumbnail"
-        data="{{current_user.profile_image.decode()}}">
+        data="{{current_user.profile_image.decode() if current_user.profile_image else '/static/fallback.png'}}">
         <img
           width="200"
           height="200"
@@ -42,6 +42,19 @@
           type="submit"
           class="btn btn-primary">
           Upload
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <form
+        action="/darkmode"
+        method="post">
+        <button
+          type="submit"
+          class="btn btn-primary">
+          Toggle Darkmode
         </button>
       </form>
     </div>
