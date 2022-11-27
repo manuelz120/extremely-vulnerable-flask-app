@@ -3,7 +3,6 @@ from json import dumps
 from flask import render_template, request, redirect, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import checkpw
-from sqlalchemy import select
 from app import app, login_manager
 from models import Session, User
 from forms.login_form import LoginForm
