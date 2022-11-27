@@ -9,4 +9,4 @@ class User(BaseModel, UserMixin):
 
     email = Column(String, unique=True, nullable=False)
     password = Column(String)
-    notes = relationship("Note", backref="users")
+    notes = relationship("Note", backref="user")

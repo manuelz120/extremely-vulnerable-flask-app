@@ -10,28 +10,30 @@ import render_icon %}
   <div class="row">
     {%for note in notes %}
     <div class="col-sm-6">
-      <div
-        class="card"
-        style="width: 18rem">
+      <div class="card mb-2">
         <div class="card-body">
           <h5 class="card-title">
             {{note.title}} {% if note.private %} - Private
             {{render_icon('file-lock-fill')}} {% endif %}
           </h5>
           <h6 class="card-subtitle mb-2 text-muted">{{note.created_at}}</h6>
-          <p class="card-text">
-            {{note.text | safe}}
-            <span>{{note.user}}</span>
-          </p>
-          <a
-            href="#"
-            class="card-link"
-            >Delete</a
-          >
+          <p class="card-text">{{note.text | safe}}</p>
+
+          <div class="card-footer text-muted">
+            <div class="d-flex justify-content-between">
+              <span>By {{note.user.email}}</span>
+              <a
+                href="#"
+                class="card-link"
+                >Delete</a
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>
     {%endfor%}
+    <hr />
     <div class="row">
       <form
         method="post"
