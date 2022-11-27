@@ -20,18 +20,19 @@ def add_note():
 
     if not form.validate():
         flash(dumps(form.errors), 'error')
+    else:
+        with Session(expire_on_commit=False) as session:
+            note = Note(id=None,
+                        created_at=None,
+                        title=form.title.data,
+                        text=form.text.data,
+                        private=form.private.data,
+                        user_id=current_user.id)
+            session.add(note)
+            session.commit()
 
-    with Session(expire_on_commit=False) as session:
-        note = Note(id=None,
-                    created_at=None,
-                    title=form.title.data,
-                    text=form.text.data,
-                    private=form.private.data,
-                    user_id=current_user.id)
-        session.add(note)
-        session.commit()
+        flash('Note created', 'success')
 
-    flash('Note created', 'success')
     return redirect('/home')
 
 

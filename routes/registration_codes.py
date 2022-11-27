@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import uuid
+from uuid import uuid4
 
 from flask_login import login_required, current_user
 from flask import (render_template, redirect, flash)
@@ -32,7 +32,7 @@ def add_registration_codes():
 
     with Session(expire_on_commit=False) as session:
         code = RegistrationCode()
-        code.code = str(uuid.uuid4())
+        code.code = str(uuid4())
         session.add(code)
         session.commit()
 

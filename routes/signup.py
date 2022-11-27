@@ -35,36 +35,36 @@ def do_signup():
 
     if not form.validate():
         flash(dumps(form.errors), 'error')
+    else:
+        with Session() as session:
+            user_already_exists = session.query(
+                session.query(User).where(
+                    User.email == form.email.data).exists()).scalar()
 
-    with Session() as session:
-        user_already_exists = session.query(
-            session.query(User).where(
-                User.email == form.email.data).exists()).scalar()
+            code = form.registration_code.data
+            token_id = validate_token(code, session)
+            if token_id is None:
+                flash("Invalid registration code", 'warning')
+                return redirect("/signup")
 
-        code = form.registration_code.data
-        token_id = validate_token(code, session)
-        if token_id is None:
-            flash("Invalid registration code", 'warning')
-            return redirect("/signup")
+            token = session.get(RegistrationCode, token_id)
+            if token.code != code:
+                flash("Unexpected registration code mismatch", 'error')
+                return redirect("/signup")
 
-        token = session.get(RegistrationCode, token_id)
-        if token.code != code:
-            flash("Unexpected registration code mismatch", 'error')
-            return redirect("/signup")
+            session.delete(token)
 
-        session.delete(token)
+            if user_already_exists:
+                flash("User already exists", 'warning')
+                return redirect("/signup")
 
-        if user_already_exists:
-            flash("User already exists", 'warning')
-            return redirect("/signup")
+            user = User()
 
-        user = User()
+            user.email = form.email.data
+            user.password = hashpw(form.password.data.encode('utf-8'),
+                                   gensalt()).decode()
 
-        user.email = form.email.data
-        user.password = hashpw(form.password.data.encode('utf-8'),
-                               gensalt()).decode()
-
-        session.add(user)
-        session.commit()
+            session.add(user)
+            session.commit()
 
     return redirect('/home')

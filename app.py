@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import uuid
+from uuid import uuid4
 
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
@@ -16,7 +16,7 @@ def setup_db():
         session.execute(f"DELETE FROM {RegistrationCode.__tablename__}")
         for i in range(10):
             code = RegistrationCode()
-            code.code = str(uuid.uuid4())
+            code.code = str(uuid4())
             session.add(code)
 
         session.commit()
