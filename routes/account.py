@@ -1,10 +1,19 @@
-from json import dumps
+from pickle import dumps, loads
+from base64 import b64encode, b64decode
+
 from flask_login import login_required, current_user
-from flask import request, redirect, flash
+from flask import redirect, flash, render_template, request, Response, g, make_response
+
 from app import app
-from forms.image_form import ImageForm
 from models import Session
+from forms.image_form import ImageForm
 from utils.profile_image import get_base64_image_blob
+
+
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html')
 
 
 @app.route('/account/image', methods=['POST'])
@@ -22,3 +31,37 @@ def add_image():
         session.commit()
 
     return redirect('/account')
+
+
+default_preferences = {'mode': 'light'}
+
+
+@app.before_request
+def before_request():
+    preferences = request.cookies.get('preferences')
+    if preferences is None:
+        preferences = default_preferences
+    else:
+        preferences = loads(b64decode(preferences))
+
+    g.preferences = preferences
+
+
+@app.after_request
+def after_request(response: Response) -> Response:
+    if request.cookies.get('preferences') is None:
+        preferences = default_preferences
+        response.set_cookie('preferences',
+                            b64encode(dumps(preferences)).decode())
+    return response
+
+
+@app.route('/darkmode', methods=['POST'])
+def toggle_darkmode():
+    response = make_response(redirect('/account'))
+
+    preferences = g.preferences
+    preferences['mode'] = 'light' if preferences['mode'] == 'dark' else 'dark'
+
+    response.set_cookie('preferences', b64encode(dumps(preferences)))
+    return response
