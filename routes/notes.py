@@ -1,3 +1,4 @@
+from json import dumps
 from flask_login import login_required, current_user
 from flask import request, redirect, flash
 from app import app
@@ -18,7 +19,7 @@ def add_note():
     form = NoteForm(request.form)
 
     if not form.validate():
-        return form.errors
+        flash(dumps(form.errors), 'error')
 
     with Session(expire_on_commit=False) as session:
         note = Note()

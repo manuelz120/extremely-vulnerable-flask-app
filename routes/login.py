@@ -1,4 +1,5 @@
 from typing import Union
+from json import dumps
 from flask import render_template, request, redirect, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import checkpw
@@ -24,7 +25,7 @@ def do_login():
     form = LoginForm(request.form)
 
     if not form.validate():
-        return form.errors
+        flash(dumps(form.errors), 'error')
 
     with Session() as session:
         query_response = session.execute(select(User).order_by(

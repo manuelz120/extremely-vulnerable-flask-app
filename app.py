@@ -46,6 +46,12 @@ def home():
                            notes=get_notes_for_user(current_user.id))
 
 
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html')
+
+
 @login_manager.unauthorized_handler
 def unauthorized():
     return redirect('/login')

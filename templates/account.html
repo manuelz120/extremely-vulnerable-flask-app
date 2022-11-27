@@ -5,5 +5,46 @@
       <h1>Account</h1>
     </div>
   </div>
+  <div class="row">
+    <div class="col"><b>Email:</b>&nbsp;{{current_user.email}}</div>
+    <div class="col">
+      <object
+        width="200"
+        height="200"
+        class="rounded img-thumbnail"
+        data="{{current_user.profile_image.decode()}}">
+        <img
+          width="200"
+          height="200"
+          class="rounded img-thumbnail"
+          src="/static/fallback.png" />
+      </object>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <form
+        method="post"
+        action="/account/image">
+        <div class="mb-3">
+          <label
+            for="url"
+            class="form-label">
+            Image URL
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            name="url"
+            id="url" />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary">
+          Upload
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
 {% endblock %}

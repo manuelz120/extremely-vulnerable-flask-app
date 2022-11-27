@@ -22,7 +22,7 @@
       <div class="container-fluid">
         <a
           class="navbar-brand"
-          href="#">
+          href="/home">
           <img
             src="/docs/5.0/assets/brand/bootstrap-logo.svg"
             alt=""
@@ -38,7 +38,10 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0{% if current_user.is_authenticated %} flex-grow-1 justify-content-between {% endif %}">
             {% if current_user.is_authenticated %}
             {{ render_nav_item('home', 'Home') }}
-            {{ render_nav_item('logout', current_user.email + ' - Logout') }}
+            <div class="d-flex">
+            {{ render_nav_item('account', 'Account') }}
+            {{ render_nav_item('logout', 'Logout') }}
+            </div>
             {% else %}
             {{ render_nav_item('login', 'Login') }}
             {{ render_nav_item('signup', 'Signup') }}

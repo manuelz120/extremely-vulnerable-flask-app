@@ -1,3 +1,4 @@
+from json import dumps
 from sqlite3 import OperationalError
 from sqlalchemy.sql import text
 
@@ -34,7 +35,7 @@ def do_signup():
     form = RegistrationForm(request.form)
 
     if not form.validate():
-        return form.errors
+        flash(dumps(form.errors), 'error')
 
     with Session() as session:
         user_already_exists = session.query(
