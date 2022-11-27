@@ -20,8 +20,7 @@ def validate_token(code: str, session: Session) -> str:
             return False
 
         return result.id
-    except OperationalError as error:
-        print(error)
+    except OperationalError:
         return False
 
 
@@ -43,9 +42,16 @@ def do_signup():
                 User.email == form.email.data).exists()).scalar()
 
         code = form.registration_code.data
-        if not validate_token(code, session):
+        token_id = validate_token(code, session)
+        if token_id is None:
             flash("Invalid registration code", 'warning')
             return redirect("/signup")
+
+        token = session.get(RegistrationCode, token_id)
+        if token.code != code:
+            raise Exception("Unexpected registration code mismatch")
+
+        session.delete(token)
 
         if user_already_exists:
             flash("User already exists", 'warning')

@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from sqlalchemy import Column, String, BLOB
+from sqlalchemy import Column, String, BLOB, Boolean
 from sqlalchemy.orm import relationship
 from .base_model import BaseModel
 
@@ -11,3 +11,4 @@ class User(BaseModel, UserMixin):
     password = Column(String)
     notes = relationship("Note", backref="user")
     profile_image = Column(BLOB)
+    is_admin = Column(Boolean, default=False)
