@@ -4,8 +4,8 @@ from base64 import b64encode
 
 
 def download(url: str) -> bytes:
-    response = urlopen(url)
-    return response.read()
+    with urlopen(url) as response:
+        return response.read()
 
 
 def get_base64_image_blob(url: str) -> str:

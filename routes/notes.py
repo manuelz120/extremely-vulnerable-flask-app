@@ -22,11 +22,12 @@ def add_note():
         flash(dumps(form.errors), 'error')
 
     with Session(expire_on_commit=False) as session:
-        note = Note()
-        note.title = form.title.data
-        note.text = form.text.data
-        note.private = form.private.data
-        note.user_id = current_user.id
+        note = Note(id=None,
+                    created_at=None,
+                    title=form.title.data,
+                    text=form.text.data,
+                    private=form.private.data,
+                    user_id=current_user.id)
         session.add(note)
         session.commit()
 
