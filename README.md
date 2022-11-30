@@ -4,6 +4,8 @@
 
 Intentionally vulnerable Python / Flask application, built for educational purposes.
 
+<img src="./demo.png" alt="Demo Image" width="800" />
+
 ## Setup
 
 Using `python3` and [venv](https://docs.python.org/3/library/venv.html):
