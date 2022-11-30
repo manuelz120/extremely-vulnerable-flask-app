@@ -37,9 +37,21 @@ Afterwards, the app should be running at http://localhost:5000
 - Turn off after user ⚠️
 - Use at your own risk ⚠️
 
+## Getting started
+
+Registration is based on invites. Either hack your way into the systems, or use the leaked invite code `a36e990b-0024-4d55-b74a-f8d7528e1764` to get started.
+
+## Resetting state
+
+Either create a fresh docker container, or remove the local database (`database.db`) and restart the app.
+
 ## Tools
 
 - Python 3 + Flask
 - SQLAlchemy + SQLite Database
 - Jinja Templating
 - [Bootstrap-Flask](https://bootstrap-flask.readthedocs.io/en/stable/)
+
+## Vulnerability Documentation, Exploit scripts and solutions
+
+TODO

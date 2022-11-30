@@ -13,13 +13,18 @@ from models import RegistrationCode, Session
 
 def setup_db():
     with Session() as session:
-        session.execute(f"DELETE FROM {RegistrationCode.__tablename__}")
-        for i in range(10):
+        if session.query(RegistrationCode).count() == 0:
+            static_code = 'a36e990b-0024-4d55-b74a-f8d7528e1764'
             code = RegistrationCode()
-            code.code = str(uuid4())
+            code.code = static_code
             session.add(code)
 
-        session.commit()
+            for i in range(10):
+                code = RegistrationCode()
+                code.code = str(uuid4())
+                session.add(code)
+
+            session.commit()
 
 
 app = Flask(__name__)
