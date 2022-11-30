@@ -31,8 +31,7 @@ def add_registration_codes():
         return redirect('/home')
 
     with Session(expire_on_commit=False) as session:
-        code = RegistrationCode()
-        code.code = str(uuid4())
+        code = RegistrationCode(str(uuid4()))
         session.add(code)
         session.commit()
 
