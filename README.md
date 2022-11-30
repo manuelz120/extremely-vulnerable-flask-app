@@ -27,3 +27,19 @@ docker run --name extremely_vulnerable_flask_app -p 5000:80 extremely_vulnerable
 ```
 
 Afterwards, the app should be running at http://localhost:5000
+
+## Disclaimer ⚠️
+
+**This app is really vulnerable!** 💣
+
+- Don't run it on publicly accessible server / public networks ⚠️
+- Don't blindly copy code or use this as an example / template ⚠️
+- Turn off after user ⚠️
+- Use at your own risk ⚠️
+
+## Tools
+
+- Python 3 + Flask
+- SQLAlchemy + SQLite Database
+- Jinja Templating
+- [Bootstrap-Flask](https://bootstrap-flask.readthedocs.io/en/stable/)
