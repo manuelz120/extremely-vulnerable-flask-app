@@ -7,11 +7,9 @@ RUN apt-get -y install nginx \
     && apt-get -y install python3-dev \
     && apt-get -y install build-essential
 
+COPY conf/nginx.conf /etc/nginx
 COPY --chown=www-data:www-data . /srv/flask_app
+
 WORKDIR /srv/flask_app
-
 RUN pip install -r requirements.txt --src /usr/local/src
-
-COPY nginx.conf /etc/nginx
-RUN chmod +x ./start.sh
-CMD ["./start.sh"]
+CMD ["/bin/bash", "-e", "./start.sh"]

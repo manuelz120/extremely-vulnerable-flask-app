@@ -36,7 +36,7 @@ Afterwards, the app should be running at http://localhost:5000
 
 - Don't run it on publicly accessible server / public networks ⚠️
 - Don't blindly copy code or use this as an example / template ⚠️
-- Turn off after user ⚠️
+- Turn off after use ⚠️
 - Use at your own risk ⚠️
 
 ## Getting started
