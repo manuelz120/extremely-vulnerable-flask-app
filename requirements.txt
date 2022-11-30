@@ -20,6 +20,7 @@ pylint==2.15.6
 SQLAlchemy==1.4.44
 tomli==2.0.1
 tomlkit==0.11.6
+uWSGI==2.0.21
 Werkzeug==2.2.2
 wrapt==1.14.1
 WTForms==3.0.1
