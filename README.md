@@ -41,7 +41,10 @@ Afterwards, the app should be running at http://localhost:5000
 
 ## Getting started
 
-Registration is based on invites. Either hack your way into the systems, or use the leaked invite code `a36e990b-0024-4d55-b74a-f8d7528e1764` to get started.
+Registration is based on invites. Either hack your way into the systems, or use the leaked invite code `a36e990b-0024-4d55-b74a-f8d7528e1764` to get started. Moreover, there are two predefined test users:
+
+- `user@evfa.com:user` - normal user
+- `admin@evfa.com:admin` - admin user
 
 ## Resetting state
 

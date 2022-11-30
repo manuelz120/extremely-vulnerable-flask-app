@@ -58,11 +58,9 @@ def do_signup():
                 flash("User already exists", 'warning')
                 return redirect("/signup")
 
-            user = User()
-
-            user.email = form.email.data
-            user.password = hashpw(form.password.data.encode('utf-8'),
-                                   gensalt()).decode()
+            user = User(
+                form.email.data,
+                hashpw(form.password.data.encode('utf-8'), gensalt()).decode())
 
             session.add(user)
             session.commit()
