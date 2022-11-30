@@ -1,4 +1,4 @@
-astroid==2.12.12
+astroid==2.12.13
 bcrypt==4.0.1
 Bootstrap-Flask==2.1.0
 click==8.1.3
