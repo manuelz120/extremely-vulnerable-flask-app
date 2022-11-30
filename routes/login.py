@@ -1,8 +1,8 @@
 from typing import Union
+from json import dumps
 from flask import render_template, request, redirect, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import checkpw
-from sqlalchemy import select
 from app import app, login_manager
 from models import Session, User
 from forms.login_form import LoginForm
@@ -24,17 +24,15 @@ def do_login():
     form = LoginForm(request.form)
 
     if not form.validate():
-        return form.errors
-
-    with Session() as session:
-        query_response = session.execute(select(User).order_by(
-            User.id)).fetchone()
-        user = query_response[0] if query_response is not None else None
-
-        if user is not None and checkpw(
-                form.password.data.encode('utf-8'),
-                user.password.encode('utf-8')) and login_user(user):
-            return redirect("/")
+        flash(dumps(form.errors), 'error')
+    else:
+        with Session() as session:
+            user = session.query(User).filter(
+                User.email == form.email.data).first()
+            if user is not None and checkpw(
+                    form.password.data.encode('utf-8'),
+                    user.password.encode('utf-8')) and login_user(user):
+                return redirect("/")
 
     flash('Invalid Credentials!', 'warning')
     logout_user()
