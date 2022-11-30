@@ -1,0 +1,44 @@
+{% from 'bootstrap5/utils.html' import render_icon %}
+<div
+  class="modal fade"
+  id="change_image_modal"
+  tabindex="-1"
+  aria-labelledby="Change Image Modal"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Change Image</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form
+          method="post"
+          action="/account/image">
+          <div class="mb-3">
+            <label
+              for="url"
+              class="form-label">
+              Image URL
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="url"
+              id="url"
+              required />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary">
+            {{render_icon('upload')}}&nbsp;Upload
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

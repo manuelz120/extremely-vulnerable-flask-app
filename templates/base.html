@@ -1,5 +1,7 @@
+{% from 'bootstrap5/utils.html' import render_messages %}
+{% from 'bootstrap5/nav.html' import render_nav_item %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-color-scheme="{{'dark' if g.preferences['mode'] == 'dark' else 'light'}}">
   <head>
     {% block head %}
     <!-- Required meta tags -->
@@ -7,18 +9,79 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="color-scheme" content="light dark">
+    <title>Extremely vulnerable Flask App</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    {% if g.preferences['mode'] == 'light' %}
+    {{ bootstrap.load_css() }} 
+    {% else %}
+    <link href="/static/bootstrap-night.min.css" rel="stylesheet">
+    {% endif %}
 
     {% block styles %}
-    <!-- Bootstrap CSS -->
-    {{ bootstrap.load_css() }} {% endblock %}
+    {% endblock %}
 
-    <title>Extremely vulnerable Flask App</title>
     {% endblock %}
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a
+          class="navbar-brand"
+          href="/home">
+          <img
+            src="/static/icon{{'-dark' if g.preferences['mode'] == 'dark' else '' }}.png"
+            alt=""
+            width="30"
+            height="30"
+            class="d-inline-block align-text-top" />
+          Extremely Vulnerable Flask App
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0{% if current_user.is_authenticated %} flex-grow-1 justify-content-between {% endif %}">
+            {% if current_user.is_authenticated %}
+            <div class="d-flex flex-column flex-lg-row">
+            {{ render_nav_item('home', 'Home') }}
+            {{ render_nav_item('get_personal_notes', 'Personal Notes', user_id=current_user.id) }}
+            {% if current_user.is_admin %}
+            {{ render_nav_item('registration_codes', 'Registration Codes') }}
+            {% endif %}
+            </div>
+            <div class="d-flex flex-column flex-lg-row">
+              <a href="/account">
+                <object
+                  width="40"
+                  height="40"
+                  class="rounded-circle img-thumbnail d-flex"
+                  data="{{current_user.profile_image.decode() if current_user.profile_image else '/static/fallback.png'}}">
+                  <img width="40"
+                      height="40"
+                      class="rounded-circle img-thumbnail"
+                      src="/static/fallback.png" />
+                </object>
+              </a>
+              {{ render_nav_item('account', 'Account') }}
+              {{ render_nav_item('logout', 'Logout') }}
+            </div>
+            {% else %}
+            {{ render_nav_item('login', 'Login') }}
+            {{ render_nav_item('signup', 'Signup') }}
+            {% endif%}
+          </ul>
+      </div>
+    </nav>
+    {{ render_messages(dismissible=True, dismiss_animate=True) }}
+    <main>
     <!-- Your page content -->
-    {% block content %}{% endblock %} {% block scripts %}
+    {% block content %}{% endblock %} 
+    </main>
+    {% block scripts %}
     <!-- Optional JavaScript -->
-    {{ bootstrap.load_js() }} {% endblock %}
+    {% endblock %}
+    {{ bootstrap.load_js() }} 
   </body>
 </html>

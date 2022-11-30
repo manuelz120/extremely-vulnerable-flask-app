@@ -5,6 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from .base_model import BaseModel
 from .user import User
 from .registration_code import RegistrationCode
+from .note import Note
 
 basedir = path.abspath(path.dirname(__file__))
 

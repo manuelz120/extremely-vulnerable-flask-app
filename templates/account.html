@@ -1,0 +1,114 @@
+{% extends "base.html" %} {% from 'bootstrap5/utils.html' import render_icon %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Account</h1>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col col-12 col-md-6">
+      <form
+        method="post"
+        action="/account">
+        <div class="mb-3">
+          <label
+            for="email"
+            class="form-label">
+            Email address
+          </label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            id="email"
+            value="{{current_user.email}}" />
+        </div>
+        <div class="mb-3">
+          <label
+            for="password"
+            class="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            value="{{uuid}}" />
+        </div>
+        <input
+          type="hidden"
+          class="form-control"
+          id="password_control"
+          name="password_control"
+          value="{{uuid}}" />
+
+        {% if current_user.is_admin %}
+        <div class="mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="is_admin"
+            checked="{{current_user.is_admin}}"
+            id="is_admin" />
+          <label
+            class="form-check-label"
+            for="is_admin">
+            Admin
+          </label>
+        </div>
+        {% endif %}
+        <button
+          type="submit"
+          class="btn btn-primary">
+          Update
+        </button>
+      </form>
+    </div>
+    <div class="col col-12 col-md-6">
+      <div class="d-flex flex-column align-items-center">
+        <object
+          width="200"
+          height="200"
+          class="rounded-circle img-thumbnail d-flex mb-2"
+          data="{{current_user.profile_image.decode() if current_user.profile_image else '/static/fallback.png'}}">
+          <img
+            width="200"
+            height="200"
+            class="rounded-circle img-thumbnail"
+            src="/static/fallback.png" />
+        </object>
+        {% include "partials/change_image_modal.html" %}
+        <button
+          class="btn btn-primary mb-2"
+          data-bs-toggle="modal"
+          data-bs-target="#change_image_modal">
+          {{ render_icon('image') }} Change Image
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2"></div>
+  <div class="row mb-2">
+    <div class="col">
+      <h2>Preferences</h2>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col">
+      <form
+        action="/darkmode"
+        method="post">
+        <button
+          type="submit"
+          class="btn btn-primary d-flex align-items-center">
+          {% if g.preferences['mode'] == 'light' %}
+          {{render_icon('moon')}}&nbsp;Enable Darkmode {% else %}
+          {{render_icon('sun')}}&nbsp;Disable Darkmode {% endif %}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
