@@ -36,6 +36,8 @@ docker-compose up --build
 
 Afterwards, the app should be running at http://localhost:5000
 
+In case port 5000 is already occupied on your system, feel free to change it to something else by adjusting the Docker / compose port mapping or adding the `-p <desired-port>` parameter when starting flask.
+
 ## Disclaimer ⚠️
 
 **This app is really vulnerable!** 💣
