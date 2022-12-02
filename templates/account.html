@@ -61,8 +61,8 @@
         {% endif %}
         <button
           type="submit"
-          class="btn btn-primary">
-          Update
+          class="btn btn-primary d-flex align-items-center">
+          {{ render_icon('save') }}&nbsp;Update
         </button>
       </form>
     </div>
@@ -81,10 +81,10 @@
         </object>
         {% include "partials/change_image_modal.html" %}
         <button
-          class="btn btn-primary mb-2"
+          class="btn btn-primary mb-2 d-flex align-items-center"
           data-bs-toggle="modal"
           data-bs-target="#change_image_modal">
-          {{ render_icon('image') }} Change Image
+          {{ render_icon('image') }}&nbsp;Change Image
         </button>
       </div>
     </div>
