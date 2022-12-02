@@ -1,5 +1,6 @@
 from json import dumps
 from sqlite3 import OperationalError
+from typing import Union
 from sqlalchemy.sql import text
 
 from flask import render_template, request, redirect, flash
@@ -9,7 +10,7 @@ from models import Session, User, RegistrationCode
 from forms.registration_form import RegistrationForm
 
 
-def validate_token(code: str, session: Session) -> str:
+def validate_token(code: str, session: Session) -> Union[str, None]:
     try:
         result = session.execute(
             text(f"""
@@ -17,11 +18,11 @@ def validate_token(code: str, session: Session) -> str:
             """)).first()
 
         if result is None:
-            return False
+            return None
 
         return result.id
     except OperationalError:
-        return False
+        return None
 
 
 @app.route('/signup', methods=['GET'])

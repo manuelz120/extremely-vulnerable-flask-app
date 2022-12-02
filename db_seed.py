@@ -34,7 +34,7 @@ def setup_db():
                     created_at=None,
                     title='Private admin note',
                     text='A private note, created by an admin user',
-                    private=False,
+                    private=True,
                     user_id=admin.id)
 
                 session.add(user_note)
