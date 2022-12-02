@@ -34,7 +34,20 @@ import render_icon %}
         </div>
         <div
           class="card-footer text-muted d-flex justify-content-between align-items-center">
-          <span>By {{ note.user.email }}</span>
+          <div class="d-flex align-items-center">
+            <object
+              width="40"
+              height="40"
+              class="rounded img-thumbnail d-flex"
+              data="{{note.user.profile_image.decode() if note.user.profile_image else '/static/fallback.png'}}">
+              <img
+                width="40"
+                height="40"
+                class="rounded img-thumbnail"
+                src="/static/fallback.png" />
+            </object>
+            <span class="ms-1">By {{ note.user.email }}</span>
+          </div>
           {% if note.user_id == current_user.id or current_user.is_admin %}
           <form
             method="post"
