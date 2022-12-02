@@ -14,7 +14,7 @@ def validate_token(code: str, session: Session) -> Union[str, None]:
     try:
         result = session.execute(
             text(f"""
-                SELECT id, code from {RegistrationCode.__tablename__} where code = '{code}'
+                SELECT id, code FROM {RegistrationCode.__tablename__} WHERE code = '{code}'
             """)).first()
 
         if result is None:
