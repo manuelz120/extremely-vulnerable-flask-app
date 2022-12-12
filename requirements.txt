@@ -16,7 +16,7 @@ lazy-object-proxy==1.8.0
 MarkupSafe==2.1.1
 mccabe==0.7.0
 platformdirs==2.6.0
-pylint==2.15.7
+pylint==2.15.8
 SQLAlchemy==1.4.45
 tomli==2.0.1
 tomlkit==0.11.6
