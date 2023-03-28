@@ -21,7 +21,7 @@ SQLAlchemy==2.0.1
 tomli==2.0.1
 tomlkit==0.11.6
 uWSGI==2.0.21
-Werkzeug==2.2.2
+Werkzeug==2.2.3
 wrapt==1.14.1
 WTForms==3.0.1
 yapf==0.32.0
