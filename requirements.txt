@@ -19,7 +19,7 @@ platformdirs==3.2.0
 pylint==2.17.2
 SQLAlchemy==2.0.9
 tomli==2.0.1
-tomlkit==0.11.6
+tomlkit==0.11.7
 uWSGI==2.0.21
 Werkzeug==2.2.3
 wrapt==1.14.1
