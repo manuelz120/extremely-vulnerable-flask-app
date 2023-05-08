@@ -24,4 +24,4 @@ uWSGI==2.0.21
 Werkzeug==2.3.3
 wrapt==1.14.1
 WTForms==3.0.1
-yapf==0.32.0
+yapf==0.33.0
