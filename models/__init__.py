@@ -9,10 +9,10 @@ from .note import Note
 
 basedir = path.abspath(path.dirname(__file__))
 
-engine: Engine = create_engine('sqlite:///' +
-                               path.join(basedir, '..', 'database.db'),
-                               echo=True,
-                               encoding='utf8')
+engine: Engine = create_engine(
+    'sqlite:///' + path.join(basedir, '..', 'database.db'),
+    echo=True,
+)
 
 BaseModel.metadata.create_all(bind=engine)
 
