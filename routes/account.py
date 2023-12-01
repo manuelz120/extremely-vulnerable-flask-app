@@ -24,13 +24,13 @@ def account():
 @app.route('/search')
 @login_required
 def search():
-    search = request.args.get('search', '')
+    search_param = request.args.get('search', '')
     with Session() as session:
         session.query(Note)
 
         personal_notes = session.query(Note).filter(
             Note.user_id == current_user.id,
-            text(f"text like '%{search}%'")).all()
+            text(f"text like '%{search_param}%'")).all()
         return render_template(
             'search.html',
             search=search,
