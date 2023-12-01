@@ -1,12 +1,12 @@
 from pickle import dumps, loads
 from base64 import b64encode, b64decode
-from sqlalchemy import text
 import json
 from uuid import uuid4
 
 from bcrypt import gensalt, hashpw
 from flask_login import login_required, current_user
 from flask import redirect, flash, render_template, request, Response, g, make_response
+from sqlalchemy import text
 
 from app import app
 from models import Session, Note
