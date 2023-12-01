@@ -5,12 +5,8 @@
     <div class="col">
       <div class="d-flex justify-content-between align-items-center">
         <h1>Registration Codes</h1>
-        <form
-          method="post"
-          action="/registration-codes">
-          <button
-            type="submit"
-            class="btn btn-primary mb-2 d-flex align-items-center">
+        <form method="post" action="/registration-codes">
+          <button type="submit" class="btn btn-primary mb-2 d-flex align-items-center">
             {{ render_icon('plus-circle') }}&nbsp;Generate new
           </button>
         </form>
@@ -19,9 +15,8 @@
   </div>
   <div class="row mb-2">
     <div class="col">
-      {{ render_table(registration_codes, responsive=True,
-      table_classes="font-monospace") }} {% if registration_codes | length == 0
-      %}
+      {{ render_table(registration_codes, responsive=True, table_classes="font-monospace") }}
+      {% if registration_codes | length == 0 %}
       <p>No registration codes available</p>
       {% endif %}
     </div>

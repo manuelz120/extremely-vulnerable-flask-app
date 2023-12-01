@@ -6,6 +6,7 @@ from uuid import uuid4
 from bcrypt import gensalt, hashpw
 from flask_login import login_required, current_user
 from flask import redirect, flash, render_template, request, Response, g, make_response
+from sqlalchemy import text
 
 from app import app
 from models import Session, Note
@@ -18,6 +19,23 @@ from utils.profile_image import get_base64_image_blob
 @login_required
 def account():
     return render_template('account.html', uuid=str(uuid4()))
+
+
+@app.route('/search')
+@login_required
+def search():
+    search_param = request.args.get('search', '')
+    with Session() as session:
+        session.query(Note)
+
+        personal_notes = session.query(Note).filter(
+            Note.user_id == current_user.id,
+            text(f"text like '%{search_param}%'")).all()
+        return render_template(
+            'search.html',
+            search=search_param,
+            personal_notes=personal_notes,
+        )
 
 
 @app.route('/accounts/<int:user_id>/notes')
@@ -84,7 +102,7 @@ def toggle_darkmode():
     preferences = g.preferences
     preferences['mode'] = 'light' if preferences['mode'] == 'dark' else 'dark'
 
-    response.set_cookie('preferences', b64encode(dumps(preferences)))
+    response.set_cookie('preferences', b64encode(dumps(preferences)).decode())
     return response
 
 

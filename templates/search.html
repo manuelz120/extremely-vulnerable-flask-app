@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% from 'bootstrap5/utils.html' import render_icon %}
+{% from 'bootstrap5/table.html' import render_table %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1>Search notes</h1>
+        <form method="get">
+          <input class="input" type="text" placeholder="Search text" name="search" value="{{search}}" />
+          {{ render_icon('search') }}
+          <input type="submit" value="Search" />
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col">
+      {{ render_table(personal_notes, responsive=True, safe_columns=['text']) }}
+      {% if personal_notes | length == 0 %}
+      <p>No notes yet</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
