@@ -33,7 +33,7 @@ def search():
             text(f"text like '%{search_param}%'")).all()
         return render_template(
             'search.html',
-            search=search,
+            search=search_param,
             personal_notes=personal_notes,
         )
 
