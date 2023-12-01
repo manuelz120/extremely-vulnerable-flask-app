@@ -1,5 +1,6 @@
 from pickle import dumps, loads
 from base64 import b64encode, b64decode
+from sqlalchemy import text
 import json
 from uuid import uuid4
 
@@ -18,6 +19,23 @@ from utils.profile_image import get_base64_image_blob
 @login_required
 def account():
     return render_template('account.html', uuid=str(uuid4()))
+
+
+@app.route('/search')
+@login_required
+def search():
+    search = request.args.get('search', '')
+    with Session() as session:
+        session.query(Note)
+
+        personal_notes = session.query(Note).filter(
+            Note.user_id == current_user.id,
+            text(f"text like '%{search}%'")).all()
+        return render_template(
+            'search.html',
+            search=search,
+            personal_notes=personal_notes,
+        )
 
 
 @app.route('/accounts/<int:user_id>/notes')
