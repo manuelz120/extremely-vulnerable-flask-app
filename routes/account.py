@@ -102,7 +102,7 @@ def toggle_darkmode():
     preferences = g.preferences
     preferences['mode'] = 'light' if preferences['mode'] == 'dark' else 'dark'
 
-    response.set_cookie('preferences', b64encode(dumps(preferences)))
+    response.set_cookie('preferences', b64encode(dumps(preferences)).decode())
     return response
 
 
