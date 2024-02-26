@@ -22,7 +22,7 @@ pylint==3.0.2
 SQLAlchemy==2.0.23
 tomli==2.0.1
 tomlkit==0.12.3
-typing_extensions==4.8.0
+typing_extensions==4.10.0
 uWSGI==2.0.23
 Werkzeug==3.0.1
 wrapt==1.16.0
