@@ -1,4 +1,3 @@
-version: "3.0"
 services:
   extremely_vulnerable_flask_app:
     build:
