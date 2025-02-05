@@ -28,10 +28,10 @@ docker build . -t extremely_vulnerable_flask_app
 docker run --name extremely_vulnerable_flask_app -p 5000:80 extremely_vulnerable_flask_app  # Can be stopped using CTRL+C or by running `docker kill extremely_vulnerable_flask_app`
 ```
 
-Using `docker-compose`:
+Using `docker compose`:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 Afterwards, the app should be running at http://localhost:5000
