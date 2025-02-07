@@ -12,4 +12,4 @@ COPY --chown=www-data:www-data . /srv/flask_app
 
 WORKDIR /srv/flask_app
 RUN pip install -r requirements.txt --src /usr/local/src
-CMD ["/bin/bash", "-e", "./start.sh"]
+CMD service nginx start; uwsgi --ini uwsgi.ini
