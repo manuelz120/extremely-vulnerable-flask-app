@@ -4,7 +4,7 @@ blinker==1.7.0
 Bootstrap-Flask==2.4.1
 click==8.1.7
 dill==0.3.7
-Flask==2.3.3
+Flask==3.1.0
 Flask-CKEditor==1.0.0
 Flask-Login==0.6.3
 Flask-SQLAlchemy==3.1.1
