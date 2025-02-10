@@ -17,7 +17,7 @@ Jinja2==3.1.5
 lazy-object-proxy==1.9.0
 MarkupSafe==2.1.3
 mccabe==0.7.0
-platformdirs==4.0.0
+platformdirs==4.3.6
 pylint==3.3.4
 SQLAlchemy==2.0.23
 tomli==2.0.1
