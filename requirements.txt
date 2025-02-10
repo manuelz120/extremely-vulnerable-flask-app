@@ -3,7 +3,7 @@ bcrypt==4.1.1
 blinker==1.9.0
 Bootstrap-Flask==2.4.1
 click==8.1.7
-dill==0.3.7
+dill==0.3.9
 Flask==3.1.0
 Flask-CKEditor==1.0.0
 Flask-Login==0.6.3
