@@ -17,7 +17,7 @@ Jinja2==3.1.6
 lazy-object-proxy==1.9.0
 MarkupSafe==3.0.3
 mccabe==0.7.0
-platformdirs==4.0.0
+platformdirs==4.5.1
 pylint==3.3.4
 SQLAlchemy==2.0.38
 tomli==2.0.1
@@ -25,7 +25,7 @@ tomlkit==0.12.3
 typing_extensions==4.12.2
 uWSGI==2.0.31
 Werkzeug==3.1.5
-wrapt==1.16.0
+wrapt==2.1.0
 WTForms==3.1.1
 yapf==0.43.0
 zipp==3.21.0
