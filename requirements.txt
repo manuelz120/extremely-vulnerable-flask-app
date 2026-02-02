@@ -8,7 +8,7 @@ Flask==3.1.1
 Flask-CKEditor==1.0.0
 Flask-Login==0.6.3
 Flask-SQLAlchemy==3.1.1
-Flask-WTF==1.2.1
+Flask-WTF==1.2.2
 greenlet==3.3.1
 importlib_metadata==8.6.1
 isort==6.0.0
