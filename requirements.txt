@@ -19,7 +19,7 @@ MarkupSafe==3.0.2
 mccabe==0.7.0
 platformdirs==4.5.1
 pylint==3.3.4
-SQLAlchemy==2.0.38
+SQLAlchemy==2.0.46
 tomli==2.0.1
 tomlkit==0.14.0
 typing_extensions==4.12.2
