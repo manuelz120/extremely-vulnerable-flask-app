@@ -1,8 +1,6 @@
 name: Docker Build Check
 
-on:
-  pull_request:
-  workflow_dispatch:
+on: [push]
 
 permissions:
   contents: read
