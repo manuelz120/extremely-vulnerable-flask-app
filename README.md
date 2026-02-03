@@ -1,6 +1,7 @@
 # Extremely Vulnerable Flask App
 
 [![Pylint](https://github.com/manuelz120/extremely-vulnerable-flask-app/actions/workflows/pylint.yml/badge.svg)](https://github.com/manuelz120/extremely-vulnerable-flask-app/actions/workflows/pylint.yml)
+[![Docker Build](https://github.com/manuelz120/extremely-vulnerable-flask-app/actions/workflows/docker-build-check.yml/badge.svg)](https://github.com/manuelz120/extremely-vulnerable-flask-app/actions/workflows/docker-build-check.yml)
 
 Intentionally vulnerable Python / Flask application, built for educational purposes.
 
