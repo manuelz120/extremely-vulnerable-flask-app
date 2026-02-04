@@ -34,16 +34,15 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        tags: |
-          # Always helpful tags
-          type=ref,event=branch
-          type=sha
-          # Add 'latest' ONLY on main
-          type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
-        labels: |
-          org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
-          org.opencontainers.image.revision=${{ github.sha }}
-
+          tags: |
+            # Always helpful tags
+            type=ref,event=branch
+            type=sha
+            # Add 'latest' ONLY on main
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
       
       - name: Build only (no push for PRs or non-main branches)
         if: github.ref != 'refs/heads/main'
@@ -78,4 +77,5 @@ jobs:
           delete-only-pre-release-versions: false
           # Protect important tags — versions with these tags won’t be deleted
           ignore-versions: |
+
             ^latest$
