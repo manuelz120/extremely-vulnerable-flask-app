@@ -22,6 +22,14 @@ python3 -m flask run # Can be stopped using CTRL+C
 
 Using `docker`:
 
+With prebuilt image:
+
+```
+docker run --name extremely_vulnerable_flask_app -p 5000:80 ghcr.io/manuelz120/extremely-vulnerable-flask-app:latest
+```
+
+Building the image yourself:
+
 ```bash
 git clone https://github.com/manuelz120/extremely-vulnerable-flask-app
 cd extremely-vulnerable-flask-app
