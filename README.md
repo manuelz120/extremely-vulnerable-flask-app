@@ -5,6 +5,8 @@
 
 Intentionally vulnerable Python / Flask application, built for educational purposes.
 
+Slides: https://docs.google.com/presentation/d/1H0RHuLxRV8LehS1DXormFd9SAItixd1DBgI7V2z6F_c/edit?usp=sharing
+
 <img src="./demo.png" alt="Demo Image" width="800" />
 
 ## Setup
